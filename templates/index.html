@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatore Statistico - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- COLONNA INPUT -->
+        <div class="input-dati card">
+            <h2><span class="header-icon">#</span> Input Dati</h2>
+            <br>
+            <textarea id = "txtValues"></textarea>
+            <!-- AREA WARNING INPUT -->
+            <div id="msgWarnings" class="warning-container">TEST</div>
+
+
+            <p>Numero di Elementi (n): <b id="txtNumElements">5</b></p>
+            <br>
+            <div class="btn-group">
+                <button class="btn-secondary" id="btnExample">📋 Esempio</button>
+                <button class="btn-secondary" id="btnReset">🗑️ Reset</button>
+            </div>
+            
+            <button class="btn-primary" id="btnCalc">▶️ CALCOLA STATISTICHE</button>
+        </div>
+
+        <!-- COLONNA RISULTATI -->
+        <div class="risultati-visualizzazione card">
+            <h2><span class="header-icon">📈</span> Risultati</h2>
+
+            <h3 style="margin-top: 10px;">A. Misure di Tendenza Centrale</h3>
+            <table class="risultati-tabella">
+                <thead>
+                    <tr>
+                        <th>Statistica</th>
+                        <th>Simbolo</th>
+                        <th>Risultato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Media Aritmetica</td><td align="center">\(\bar{x}\)</td><td class="risultato-valore" id="avgValue">5.00</td></tr>
+                    <tr><td>Mediana</td><td align="center">\(\mathrm{Me}\)</td><td class="risultato-valore" id="medianValue">5.00</td></tr>
+                    <tr><td>Moda</td><td align="center">\(\mathrm{Mo}\)</td><td class="risultato-valore" id="modaValue">4</td></tr>
+                </tbody>
+            </table>
+
+            <h3>B. Misure di Dispersione</h3>
+            <table class="risultati-tabella">
+                <tbody>
+                    <tr><td id="labelVariance">Varianza</td><td id="symbolVariance">σ²</td><td class="risultato-valore" id="varianceValue">2.00</td></tr>
+                    <tr><td id="labelStandard">Deviazione Standard</td><td>\(\mathrm{s}\)</td><td class="risultato-valore" id="standardValue">1.41</td></tr>
+                    <tr><td>Range</td><td>\(\mathrm{R}\)</td><td class="risultato-valore" id="rangeValue">4.00</td></tr>
+                    <tr><td>Range Interquartile</td><td>\(\mathrm{IQR}\)</td><td class="risultato-valore" id="iqrValue">3.00</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Visualizzazioni</h3>
+            <div class="grafici-area">
+                <canvas id="gaussChart" width="500" height="250"></canvas>
+            </div>
+        </div>
+
+        <!-- COLONNA OPZIONI -->
+        <div class="opzioni-guida card">
+            <h2><span class="header-icon">⚙️</span> Opzioni</h2>
+            <br>
+            <label for="arrotondamento">Arrotondamento:</label>
+            <select id="arrotondamento">
+                <option value="2" selected>2 cifre decimali</option>
+                <option value="3">3 cifre decimali</option>
+                <option value="4">4 cifre decimali</option>
+            </select>
+
+            <p>Tipo di Calcolo Varianza:</p>
+            <div>
+                <input type="radio" id="popolazione" name="varianza_type" checked>
+                <label for="popolazione">Popolazione (N)</label><br>
+                <input type="radio" id="campione" name="varianza_type">
+                <label for="campione">Campione (n-1)</label>
+            </div>
+
+            <br>
+
+            <button id="btnExport" class="btn-secondary">⬆️ Esporta Dati</button>
+            <button id="btnPrint" class="btn-secondary">🖨️ Stampa Risultati</button>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center;">Developed by Nik</div>
+
+</body>
+<script src = "/static/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-box-and-violin-plot@3.1.0/dist/chartjs-chart-box-and-violin-plot.min.js"></script>
+<script src = "/static/script.js"></script>
+</html>
